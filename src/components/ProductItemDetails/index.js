@@ -1,5 +1,5 @@
+// Write your code here
 import {Component} from 'react'
-
 import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
@@ -7,6 +7,7 @@ import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 
 import Header from '../Header'
 import SimilarProductItem from '../SimilarProductItem'
+
 import './index.css'
 
 const apiStatusConstants = {
@@ -56,7 +57,6 @@ class ProductItemDetails extends Component {
       },
       method: 'GET',
     }
-
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const fetchedData = await response.json()
@@ -70,8 +70,10 @@ class ProductItemDetails extends Component {
         apiStatus: apiStatusConstants.success,
       })
     }
-    if (response.status === 400) {
-      this.setState({apiStatus: apiStatusConstants.failure})
+    if (response.status === 404) {
+      this.setState({
+        apiStatus: apiStatusConstants.failure,
+      })
     }
   }
 
